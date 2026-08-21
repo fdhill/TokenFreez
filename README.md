@@ -25,55 +25,73 @@ output — gets paid for again on every subsequent turn. TokenFreez attacks all 
 Requires [opencode](https://opencode.ai). Published on
 [npm](https://www.npmjs.com/package/tokenfreez).
 
-### One line (recommended)
+**Version note:** v0.1.1+ contains a self-registering plugin entrypoint that correctly loads all four skills. Earlier versions (0.1.0) had an empty entrypoint — plugin loaded but registered zero skills. If upgrading, restart opencode to pick up the fix.
 
-Add `"plugin": ["tokenfreez"]` to your `opencode.json` — per project, or globally at
-`~/.config/opencode/opencode.json` to enable the skills in every project:
+### Plugin method (recommended)
 
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "plugin": ["tokenfreez"]
-}
+Add `"plugin": ["tokenfreez"]` to your opencode config:
+
+**Per-project** (creates `.opencode.json` in project root):
+```bash
+echo '{"plugin":["tokenfreez"]}' > .opencode.json
 ```
 
-Restart opencode — all four skills are available in every project.
+**Global** (enables in every project):
+```bash
+echo '{"$schema":"https://opencode.ai/config.json","plugin":["tokenfreez"]}' \
+  > ~/.config/opencode/opencode.jsonc
+```
 
-> Pick **one** install method: enabling the plugin while also copying the skills
-> manually registers duplicate skill names.
+Then restart opencode. All four skills (`tokenfreez`, `debuglock`, `scoutlock`, `outputlock`) become available automatically.
 
-### Manual
+**Verify installation:**
+```bash
+opencode debug skill | grep -E "debuglock|scoutlock|outputlock|tokenfreez"
+```
 
-Copy the skills you want into your project, or globally into `~/.config/opencode/skills/`:
+### Manual copy (alternative)
+
+For projects without npm access, manually copy:
 
 ```bash
-cp -r skills/tokenfreez  your-project/.opencode/skills/
-cp -r skills/debuglock   your-project/.opencode/skills/
-cp -r skills/scoutlock   your-project/.opencode/skills/
-cp -r skills/outputlock  your-project/.opencode/skills/
+mkdir -p .opencode/skills
+cp -r skills/* .opencode/skills/
 ```
 
-Optionally adopt the silent build agent:
+Optionally add the silent build agent:
 
 ```bash
-mkdir -p your-project/.opencode/agent
-cp .opencode/agent/build.md your-project/.opencode/agent/
+mkdir -p .opencode/agent
+cp .opencode/agent/build.md .opencode/agent/
 ```
 
-Restart opencode so the skills load.
+Restart opencode after any manual copy.
 
 ## Usage
 
-Skills auto-trigger from natural language — no slash commands needed:
+Skills activate automatically from natural language — no slash commands needed. Each skill also triggers proactively when it detects its pattern:
 
 | Say / situation | Skill that kicks in |
 |---|---|
-| "freeze", "save session" | tokenfreez writes `FREEZE.md` |
-| "masih error", second failed fix on the same bug | debuglock stops blind retries |
-| multi-file exploration, "dimana", "carikan" | scoutlock reads docs before code |
-| install/build/test runs, web lookups | outputlock keeps logs out of context |
+| "freeze", "save session", "tokenfreez" | `tokenfreez` writes `FREEZE.md` |
+| "masih error", "error lagi", second failed fix | `debuglock` stops blind retries |
+| multi-file exploration, "dimana", "carikan" | `scoutlock` reads docs before code |
+| install/build/test runs, web lookups | `outputlock` keeps logs out of context |
+| (auto-trigger) long tool output accumulated | `outputlock` silences/truncates |
+| (auto-trigger) same error 2x fixed unsuccessfully | `debuglock` activates immediately |
+| (auto-trigger) 3+ failed searches for same fact | `scoutlock` switches to docs-first |
 
 ### Freeze / resume cycle
+
+```
+(long session getting expensive)
+
+you: freeze        → AI writes FREEZE.md with state, decisions, next steps
+you: /new          → fresh, cheap session
+you: resume        → AI reads FREEZE.md — context restored at one file-read price
+```
+
+`FREEZE.md` is gitignored by default (via `.gitignore`) so session state never commits.
 
 ```
 (long session getting expensive)
