@@ -1,0 +1,39 @@
+{
+  "name": "tokenfreez",
+  "version": "0.1.0",
+  "description": "TokenFreez - opencode skills that cut token waste in AI coding sessions.",
+  "keywords": [
+    "opencode-plugin",
+    "opencode",
+    "tokenfreez",
+    "tokens",
+    "skills"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "fdhill",
+    "url": "https://github.com/fdhill"
+  },
+  "homepage": "https://github.com/fdhill/TokenFreez",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fdhill/TokenFreez.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fdhill/TokenFreez/issues"
+  },
+  "main": "./.opencode/plugins/tokenfreez.mjs",
+  "exports": {
+    ".": "./.opencode/plugins/tokenfreez.mjs",
+    "./plugin": "./.opencode/plugins/tokenfreez.mjs"
+  },
+  "files": [
+    "skills/",
+    ".opencode/",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

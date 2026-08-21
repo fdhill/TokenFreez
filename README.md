@@ -11,23 +11,38 @@ output — gets paid for again on every subsequent turn. TokenFreez attacks all 
 
 | Problem | Fix | Component |
 |---|---|---|
-| History resent every turn grows cost | Freeze session state to a file, restart cheap | [tokenfreez](.opencode/skill/tokenfreez/SKILL.md) |
-| Retry-debug loops multiply cost | Stop blind fixes, hypothesize first, hard budget | [debuglock](.opencode/skill/debuglock/SKILL.md) |
-| Unstructured codebase exploration | Docs first, narrow search, subagent delegation | [scoutlock](.opencode/skill/scoutlock/SKILL.md) |
-| Verbose tool results flood context | Silence, redirect-and-grep, extract the one fact | [outputlock](.opencode/skill/outputlock/SKILL.md) |
+| History resent every turn grows cost | Freeze session state to a file, restart cheap | [tokenfreez](skills/tokenfreez/SKILL.md) |
+| Retry-debug loops multiply cost | Stop blind fixes, hypothesize first, hard budget | [debuglock](skills/debuglock/SKILL.md) |
+| Unstructured codebase exploration | Docs first, narrow search, subagent delegation | [scoutlock](skills/scoutlock/SKILL.md) |
+| Verbose tool results flood context | Silence, redirect-and-grep, extract the one fact | [outputlock](skills/outputlock/SKILL.md) |
 | Narration and code echo during work | Silent `[ ]`/`[x]` checklist output only | [build agent override](.opencode/agent/build.md) |
 
 ## Install
 
 Requires [opencode](https://opencode.ai).
 
-Copy the skills you want into your project, or globally into `~/.config/opencode/skill/`:
+### One line (recommended)
+
+Add the package to your `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["tokenfreez"]
+}
+```
+
+Restart opencode — all four skills are available in every project.
+
+### Manual
+
+Copy the skills you want into your project, or globally into `~/.config/opencode/skills/`:
 
 ```bash
-cp -r .opencode/skill/tokenfreez  your-project/.opencode/skill/
-cp -r .opencode/skill/debuglock   your-project/.opencode/skill/
-cp -r .opencode/skill/scoutlock   your-project/.opencode/skill/
-cp -r .opencode/skill/outputlock  your-project/.opencode/skill/
+cp -r skills/tokenfreez  your-project/.opencode/skills/
+cp -r skills/debuglock   your-project/.opencode/skills/
+cp -r skills/scoutlock   your-project/.opencode/skills/
+cp -r skills/outputlock  your-project/.opencode/skills/
 ```
 
 Optionally adopt the silent build agent:
