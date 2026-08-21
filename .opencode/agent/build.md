@@ -56,3 +56,9 @@ follow its protocol exactly. Do not attempt a third blind fix.
 
 Before any multi-file exploration, invoke the scoutlock skill and follow its
 protocol - docs first, then targeted search.
+
+## Verbose tool output
+
+Before running a command or web fetch likely to produce long output (install,
+build, test, logs, page content), invoke the outputlock skill and follow its
+protocol - silence, redirect, or extract instead of dumping.
