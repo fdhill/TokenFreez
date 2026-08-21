@@ -1,5 +1,8 @@
 # TokenFreez
 
+[![npm version](https://img.shields.io/npm/v/tokenfreez)](https://www.npmjs.com/package/tokenfreez)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
 opencode skills that cut token waste in AI coding sessions. Each skill targets one of
 the four ways coding agents quietly burn tokens — so small tasks stop costing big money.
 
@@ -19,11 +22,13 @@ output — gets paid for again on every subsequent turn. TokenFreez attacks all 
 
 ## Install
 
-Requires [opencode](https://opencode.ai).
+Requires [opencode](https://opencode.ai). Published on
+[npm](https://www.npmjs.com/package/tokenfreez).
 
 ### One line (recommended)
 
-Add the package to your `opencode.json`:
+Add `"plugin": ["tokenfreez"]` to your `opencode.json` — per project, or globally at
+`~/.config/opencode/opencode.json` to enable the skills in every project:
 
 ```json
 {
@@ -33,6 +38,9 @@ Add the package to your `opencode.json`:
 ```
 
 Restart opencode — all four skills are available in every project.
+
+> Pick **one** install method: enabling the plugin while also copying the skills
+> manually registers duplicate skill names.
 
 ### Manual
 
