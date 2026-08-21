@@ -51,3 +51,8 @@ Nothing else. No conclusions, no explanations, no next-step suggestions unless a
 
 On the second failed fix attempt for the same error, invoke the debuglock skill and
 follow its protocol exactly. Do not attempt a third blind fix.
+
+## Exploration
+
+Before any multi-file exploration, invoke the scoutlock skill and follow its
+protocol - docs first, then targeted search.
