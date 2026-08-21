@@ -46,3 +46,8 @@ Nothing else. No conclusions, no explanations, no next-step suggestions unless a
 
 - Errors, blockers, and security findings: state them plainly and briefly.
 - Questions requiring user decisions: ask in one sentence.
+
+## Debug loops
+
+On the second failed fix attempt for the same error, invoke the debuglock skill and
+follow its protocol exactly. Do not attempt a third blind fix.
